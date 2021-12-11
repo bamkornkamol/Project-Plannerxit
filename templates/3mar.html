@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - Planner x it</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="http://d2v52k3cl9vedd.cloudfront.net/vhs/0.1.0/vhs.min.css">
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color:#f0e2a8;
+        }
+        .dark-mode{
+            background-color:#242424;
+        }
+
+        .block{
+            width: 120px;
+            height: 45px;
+            border-color: transparent;
+            float: left;
+        }
+
+        .btn{
+            width: 110px;
+            height: 40px;
+            border-radius: 22px;
+            border-color: transparent;
+            color: #ffffff;
+            font-family: Arabica;
+            font-size: 20px;
+            line-height: 42px;
+            letter-spacing: 1px;
+            text-align: center;
+            text-decoration: none;
+            margin: 5px;
+            float: left;
+        }
+
+        .btn:hover{
+            width: 100px;
+            font-size: 17px;
+            box-shadow: 0px 0px 5px 0px#919191;
+        }
+
+        .month{
+            float: left;
+        }
+
+        .week{
+            width: 170px;
+            height: 27px;
+            text-align: center;
+            border-color: transparent;
+            font-size: 22px;
+            font-family: Arabica;
+            color: #535353;
+        }
+
+        input[type=checkbox] {
+            height: 0;
+            width: 0;
+            visibility: hidden;
+        }
+
+        label {
+            cursor: pointer;
+            width: 5px;
+            height: 5px;
+            display: block;
+        }
+    </style>
+    <script>
+        function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+        }
+    </script>
+</head>
+<body>
+    <!-- navbar -->
+    <nav style="width: 100vw; font-family: Soap Regular; letter-spacing: 1px;" class="vhs-top vhs-duration-6">
+        <div class="flex justify-between rounded-full m-4 pl-8 night">
+            <div class="flex items-center justify-center text-white text-xl">
+                <a href="/logout" class="flex justify-center items-center px-4 py-5 rounded-0">
+                    <i class="ri-shut-down-line"></i>
+                    <p class="ml">logout</p>
+                </a>
+                <a href="/home" class="px-4 py-5">home</a>
+                <a href="/calendar" class="px-4 py-5" style="background-color: #ebc072;">it calendar</a>
+                <a href="/todolist" class="py-5 flex items-center px-4">
+                    task list
+                </a>
+                <a href="/diary" class="px-4 py-5">meeting</a>
+            </div>
+            <div class="flex mr-5 gap-x-4">
+                <a class="active flex items-center px-4 text-white text-xl " href="/profile">My Profile</a>
+                <label for="switch" class="flex justify-center h-full items-center">
+                    <i class="ri-moon-fill text-xl" id="icon"></i>
+                </label>
+                <input type="checkbox" class="invisible px-4" id="switch" />
+            </div>
+        </div>
+    </nav>
+
+    <div class="month">
+        <div class="block">
+            <a href="/calendar" class="btn">january</a>
+        </div>
+        <div class="block">
+            <a href="/feb" class="btn">february</a>
+        </div>
+        <div class="block">
+            <a href="/mar" class="btn thismonth">march</a>
+        </div>
+        <div class="block">
+            <a href="/apr" class="btn">april</a>
+        </div>
+        <div class="block">
+            <a href="/may" class="btn">may</a>
+        </div>
+        <div class="block">
+            <a href="/jun" class="btn">june</a>
+        </div>
+        <div class="block">
+            <a href="/jul" class="btn">july</a>
+        </div>
+        <div class="block">
+            <a href="/aug" class="btn">august</a>
+        </div>
+        <div class="block">
+            <a href="/sep" class="btn">september</a>
+        </div>
+        <div class="block">
+            <a href="/oct" class="btn">october</a>
+        </div>
+        <div class="block">
+            <a href="/nov" class="btn">november</a>
+        </div>
+        <div class="block">
+            <a href="/dec" class="btn">december</a>
+        </div>
+    </div>
+    <table style="align-items: center; margin: 20px;">
+        <tr>
+            <td class="week" style="background-color: #FCF6BD;">monday</td>
+            <td class="week" style="background-color: #FADCDC;">tuesday</td>
+            <td class="week" style="background-color: #D0F4DE;">wednesday</td>
+            <td class="week" style="background-color: #FFE2D1;">thursday</td>
+            <td class="week" style="background-color: #E5F9FE;">friday</td>
+            <td class="week" style="background-color: #E0E0F3;">saturday</td>
+            <td class="week" style="background-color: #f1c1c1;">sunday</td>
+        </tr>
+        <tr>
+            <td class="day">
+                <p>1</p>
+            </td>
+            <td class="day">
+                <p>2</p>
+            </td>
+            <td class="day">
+                <p>3</p>
+            </td>
+            <td class="day">
+                <p>4</p>
+            </td>
+            <td class="day">
+                <p>5</p>
+            </td>
+            <td class="day">
+                <p>6</p>
+            </td>
+            <td class="day">
+                <p>7</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <p>8</p>
+            </td>
+            <td class="day">
+                <p>9</p>
+            </td>
+            <td class="day">
+                <p>10</p>
+            </td>
+            <td class="day">
+                <p>11</p>
+                
+            </td>
+            <td class="day">
+                <p>12</p>
+            </td>
+            <td class="day">
+                <p>13</p>
+            </td>
+            <td class="day">
+                <p>14</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <p>15</p>
+            </td>
+            <td class="day">
+                <p>16</p>
+            </td>
+            <td class="day">
+                <p>17</p>
+            </td>
+            <td class="day">
+                <p>18</p>
+            </td>
+            <td class="day">
+                <p>19</p>
+            </td>
+            <td class="day">
+                <p>20</p>
+            </td>
+            <td class="day">
+                <p>21</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <p>22</p>
+            </td>
+            <td class="day">
+                <p>23</p>
+            </td>
+            <td class="day">
+                <p>24</p>
+            </td>
+            <td class="day">
+                <p>25</p>
+            </td>
+            <td class="day">
+                <p>26</p>
+            </td>
+            <td class="day">
+                <p>27</p>
+            </td>
+            <td class="day">
+                <p>28</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <p>29</p>
+            </td>
+            <td class="day">
+                <p>30</p>
+            </td>
+            <td class="day">
+                <p>31</p>
+            </td>
+            <td class="day">
+                <p></p>
+            </td>
+            <td class="day">
+                <p></p>
+            </td>
+            <td class="day">
+                <p></p>
+            </td>
+            <td class="day">
+                <p></p>
+            </td>
+        </tr>
+    </table>
+    <script>
+        const darkModeBtn = document.querySelector('input[type=checkbox]');
+    
+            if (localStorage.getItem('darkModeOn')) {
+                document.body.className = 'dark-mode';
+                darkModeBtn.checked = true;
+            }
+    
+            darkModeBtn.addEventListener('click', () => {
+                if (darkModeBtn.checked === true) {
+                    document.body.className = 'dark-mode';
+                } else {
+                    document.body.className = '';
+                }
+    
+                if (darkModeBtn.checked === true) {
+                    localStorage.setItem('darkModeOn', 'on');
+                } else {
+                    localStorage.removeItem('darkModeOn');
+                }
+            });
+    </script>
+</body>
+</html>
