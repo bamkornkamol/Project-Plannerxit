@@ -20,13 +20,14 @@ darkModeBtn.addEventListener("click", () => {
 });
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 function display_ct5() {
   var x = new Date();
 
   var x1 =
     x.getDate() +
     "/" +
-    x.getMonth() +
+    month[x.getMonth()] +
     "/" +
     x.getFullYear() +
     " " +
