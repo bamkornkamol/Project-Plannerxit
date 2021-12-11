@@ -117,11 +117,31 @@ def meeting_data():
             sql = "INSERT INTO `meeting` (`title`, `date_time`, `discribe`, `header`) values(%s, %s, %s, %s)"
             print(sql)
             cursor.execute(sql, (title, time, discribe, name))
+            conn.commit()
     conn.ping(reconnect=True)
     cur = conn.cursor()
     cur.execute('SELECT * FROM meeting')
     rows = cur.fetchall()
     return render_template('diary.html', username=session['username'], rows=rows, num=[i for i in range(1, len(rows)+1)])
+
+# @app.route("/meeting_add", methods=['POST'])
+# def meeting_data():
+#     if request.method == "POST":
+#         with conn.cursor() as cursor:
+#             title = request.form["title"]
+#             name = request.form["name"]
+#             discribe = request.form["discribe"]
+#             time = request.form["time"]
+#             print(title, name, discribe, time)
+#             conn.ping(reconnect=True)
+#             sql = "INSERT INTO `meeting` (`title`, `date_time`, `discribe`, `header`) values(%s, %s, %s, %s)"
+#             print(sql)
+#             cursor.execute(sql, (title, time, discribe, name))
+#     conn.ping(reconnect=True)
+#     cur = conn.cursor()
+#     cur.execute('SELECT * FROM meeting')
+#     rows = cur.fetchall()
+#     return render_template('diary.html', username=session['username'], rows=rows, num=[i for i in range(1, len(rows)+1)])
 
 # delete data
 @app.route("/delete_meeting", methods=['POST'])
