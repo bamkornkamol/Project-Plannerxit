@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0e2a8;
+}
+
+.dark-mode {
+  background-color: #222222;
+}
+
+.night {
+  background-color: #db6c51;
+}
+
+.dark-mode .night {
+  background-color: #8fc0e9;
+}
+
+.dark-mode nav a:hover {
+  background-color: #b9dbf7;
+}
+
+nav a:hover {
+  background-color: #ec9360;
+}
+
+.dark-mode .box {
+  background-color: #f0eadc;
+}
+
+.btn{
+  background-color: #87d1bb;
+}
+
+.dark-mode .btn {
+  background-color: #d0adff;
+  color: #313131;
+}
+
+.btnpf{
+  background-color: #87d1bb;
+}
+
+.btnpf:hover{
+  background-color: #ffcf67;
+}
+
+.dark-mode .btnpf{
+  background-color: #d0adff;
+}
+
+.btnpf:hover{
+  background-color: #ffd06a;
+}
+
+.dark-mode .section {
+  box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.hide-scroll-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.test{
+  line-height: 23px;
+  border-radius: 0px;
+  margin-top: 7px;
+  text-align: center; 
+  color: #ffffff;
+}
+
+.dark-mode .test{
+  color: #222222;
+}
+
+.day{
+  width: 170px;
+  height: 102px;
+  text-align: left;
+  border-color: transparent;
+  font-size: 22px;
+  font-family: Arabica;
+  color: #535353;
+  background-color: #ffffff;
+  padding: 7px;
+  vertical-align: top;
+}
+
+.dark-mode .day{
+  color: #ffffff;
+  background-color: #131313;
+}
+
+.dark-mode .text {
+  color: #000000;
+}
+
+.text2{
+  color: #000000;
+}
+
+.dark-mode .text2{
+  color: #ffffff;
+}
+
+.head2{
+  color: #005073;
+  font-family: Soap Regular;
+  letter-spacing: 3px;
+}
+
+.thismonth{
+  background-color: #da783f;
+}
+
+.dark-mode .thismonth{
+  background-color: #ffe293;
+}
+
+.addbox{
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.addbox:hover{
+  background-color: #cef1ff;
+}
+
+.dark-mode .addbox{
+  background-color: #ffc5c5;
+}
+
+.dark-mode .addbox:hover{
+  background-color: #ffafaf;
+}
+
+.addbox2{
+  background-color: #ffffff;
+}
+
+.dark-mode .addbox2{
+  background-color: #131313;
+}
+
+.addbox3{
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.addbox3:hover{
+  background-color: #ffc5c5;
+}
+
+.dark-mode .addbox3{
+  background-color: #cef1ff;
+}
+
+.dark-mode .addbox3:hover{
+  background-color: #a6def5;
+}
