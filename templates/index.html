@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner x it</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color:#f0e2a8;
+            }
+        .dark-mode{
+            background-color:#242424;
+        }
+        .head{
+                color: #005073;
+                font-size: 75px;
+                font-family: Soap Regular;
+                font-weight: 550;
+                opacity: 100%;
+                line-height: 100px;
+                letter-spacing: 10px;
+                margin: 130px 0px 65px 0px;
+                transition: letter-spacing .15s;
+                transition-delay: .15s;
+            }
+        .dark-mode .head{
+            color: #ffffff;
+            }
+        .head:hover{
+                letter-spacing: 20px;
+            }
+        .btn{
+                width: 220px;
+                height: 50px;
+                font-family: Soap Regular;
+                color: #ffffff;
+                font-size: 22px;
+                transition: opacity .15s;
+                text-decoration: none;
+                border-radius: 30px;
+                padding: 5px;
+                border-color: transparent;
+                background-color: #db6c51;
+                text-align: center;
+                line-height: 37px;
+                letter-spacing: 2px;
+            }
+        .dark-mode .btn{
+            background-color: #8fc0e9;
+            }
+        .btn:hover{
+            opacity: 85%;
+            color: #ec9360;
+            }
+        .dark-mode .btn:hover{
+            opacity: 50%;
+            color: #646464;
+        }
+        input[type=checkbox] {
+            height: 0;
+            width: 0;
+            visibility: hidden;
+        }
+        label {
+            cursor: pointer;
+            width: 5px;
+            height: 5px;
+            display: block;
+        }
+        #icon{
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <label for="switch">
+            <img src="/static/img/moon.png" id="icon">
+        </label>
+        <input type="checkbox" id="switch" />
+    </div>
+    <H1 class="head" d="div1">
+        Let's do!<br>your planner
+    </H1>
+    <a href="/login" class="btn">log in</a>
+    <a href="/signup" class="btn" style="margin-top: 15px;">sign up</a>
+    <script>
+        const darkModeBtn = document.querySelector('input[type=checkbox]');
+    
+            if (localStorage.getItem('darkModeOn')) {
+                document.body.className = 'dark-mode';
+                darkModeBtn.checked = true;
+            }
+    
+            darkModeBtn.addEventListener('click', () => {
+                if (darkModeBtn.checked === true) {
+                    document.body.className = 'dark-mode';
+                } else {
+                    document.body.className = '';
+                }
+    
+                if (darkModeBtn.checked === true) {
+                    localStorage.setItem('darkModeOn', 'on');
+                } else {
+                    localStorage.removeItem('darkModeOn');
+                }
+            });
+    </script>
+</body>
+</html>

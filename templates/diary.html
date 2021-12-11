@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting - Planner x it</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="http://d2v52k3cl9vedd.cloudfront.net/vhs/0.1.0/vhs.min.css">
+    <style>
+        .dark-mode div {
+            color: white;
+        }
+
+        .dark-mode .box-todo {
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-todo {
+            box-shadow: 0px 5px 5px rgba(255, 255, 255, 0.1);
+        }
+
+        /* .box-todo {
+            box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav style="width: 100vw; font-family: Soap Regular; letter-spacing: 1px;" class="vhs-top vhs-duration-6">
+        <div class="flex justify-between rounded-full m-4 pl-8 night">
+            <div class="flex items-center justify-center text-white text-xl">
+                <a href="/logout" class="flex justify-center items-center px-4 py-5 rounded-0">
+                    <i class="ri-shut-down-line"></i>
+                    <p class="ml">logout</p>
+                </a>
+                <a href="/home" class="px-4 py-5">home</a>
+                <a href="/calendar" class="px-4 py-5">it calendar</a>
+                <a href="/todolist" class="py-5 flex items-center px-4">
+                    task list
+                </a>
+                <a href="/diary" class="px-4 py-5" style="background-color: #ebc072;">meeting</a>
+            </div>
+            <div class="flex mr-5 gap-x-4">
+                <a class="active flex items-center px-4 text-white text-xl " href="/profile">My Profile</a>
+                <label for="switch" class="flex justify-center h-full items-center">
+                    <i class="ri-moon-fill text-xl" id="icon"></i>
+                </label>
+                <input type="checkbox" class="invisible px-4" id="switch" />
+            </div>
+        </div>
+    </nav>
+    <!-- section -->
+    <div class="flex flex-col w-full items-center justify-center px-10">
+        <div class="head2 text-7xl underline mt-5">meeting</div>
+        <div class="flex w-full my-14 justify-center items-center rounded-xl box-todo shadow-2xl">
+            <div class="w-1/2 flex justify-center items-center">
+                <button class="rounded-xl w-2/4 px-10 py-4 shadow-lg mx-auto box-todo bg-white text-2xl text-black addbox3" style="font-family: Arabica;"
+                    onclick="meet()">add meeting</button>
+                <script>
+                    let meet = () => {
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'add meeting',
+                            html: `<input type="text" id="title" class="text-black rounded-lg p-2 px-4 border border-gray-300 mt-2 w-full focus:outline-none text-black" placeholder="หัวข้อ">
+                                <textarea type="text" id="discribe" class="text-black rounded-lg p-2 px-4 border border-gray-300 mt-2 w-full focus:outline-none" placeholder="รายละเอียด"></textarea>
+                                <input type="datetime-local" id="time" class="text-black rounded-lg p-2 px-4 border border-gray-300 mt-2 w-full focus:outline-none text-gray-400">
+                                <input type="text" id="name" class="text-black rounded-lg p-2 px-4 border border-gray-300 mt-2 w-full focus:outline-none text-black" readonly value="{{ username }}">
+                                `,
+                            confirmButtonColor: '#ec9360',
+                            cancelButtonColor: '#d33',
+                            showCancelButton: true,
+                            confirmButtonText: 'yes',
+                            preConfirm: function () {
+                                return new Promise(function (resolve) {
+                                    resolve([
+                                        $('#title').val(),
+                                        $('#name').val(),
+                                        $('#discribe').val(),
+                                        $('#time').val()
+                                    ])
+                                })
+                            },
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let obj = {
+                                    title: result.value[0],
+                                    name: result.value[1],
+                                    discribe: result.value[2],
+                                    time: result.value[3],
+                                }
+                                console.log(obj)
+                                $.ajax({
+                                    url: 'meeting_add',
+                                    type: 'POST',
+                                    dataType: "json",
+                                    data: obj,
+                                    success: function (data) {
+                                        Swal.fire(
+                                            `${result.value}`,
+                                            'added',
+                                            'success'
+                                        )
+                                    }
+                                });
+                                location.reload()
+                            }
+                        })
+                    }
+                </script>
+            </div>
+            <div class="list w-1/2 flex flex-col items-center overflow-y-scroll hide-scroll-bar pb-10"
+                style="height: 30rem;">
+                {% for nums in num %}
+                <div class="mt-10 rounded-xl w-2/3 py-10 shadow-lg px-4 box-todo addbox2">
+                    <div class="text2 text-xl">title: &nbsp{{rows[nums-1].1}}</div>
+                    <div class="text2 text-xl">discribe: &nbsp{{rows[nums-1].2}}</div>
+                    <div class="text2 text-xl">time: &nbsp{{rows[nums-1].3}}</div>
+                    <div class="text2 text-xl">header: &nbsp{{rows[nums-1].4}}</div>
+                    <button class="text mt-5 text-center w-full" onclick="delete_block('{{ rows[nums-1].0 }}')">
+                        <i class="ri-delete-bin-line rounded-full p-4 shadow-xl hover:shadow-lg btn-todo bg-purple-200"></i>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+            <script>
+                let delete_block = (id) => {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Delete?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: 'delete_meeting',
+                                type: 'POST',
+                                dataType: "json",
+                                data: { data: id },
+                                success: function (data) {
+                                    Swal.fire(
+                                        `${result.value}`,
+                                        'added',
+                                        'success'
+                                    )
+                                }
+                            });
+                        }
+                        location.reload()
+                    })
+                }
+            </script>
+        </div>
+    </div>
+    <script src="../static/js/script.js"></script>
+</body>
+
+</html>

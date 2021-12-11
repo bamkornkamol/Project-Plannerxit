@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Planner x it</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="http://d2v52k3cl9vedd.cloudfront.net/vhs/0.1.0/vhs.min.css">
+
+    <style>
+        .hello {
+            color: #005073;
+            font-family: Soap Regular;
+            font-size: 70px;
+            letter-spacing: 15px;
+            transition: letter-spacing .15s;
+            transition-delay: .15s;
+        }
+
+        .dark-mode .hello {
+            color: #ffffff;
+        }
+
+        .hello:hover {
+            letter-spacing: 25px;
+        }
+
+        .box {
+            width: 1300px;
+            height: 90px;
+            background-color: #87d1bb;
+            color: #ffffff;
+            border-color: transparent;
+            border-radius: 40px;
+            text-align: center;
+            font-size: 50px;
+            font-family: Soap Regular;
+            line-height: 92px;
+            letter-spacing: 5px;
+        }
+
+        .time {
+            color: #ad874d;
+            font-family: Soap Regular;
+            font-size: 40px;
+            margin: 0px 0px 40px 0px;
+            letter-spacing: 5px;
+        }
+
+        .dark-mode .time {
+            color: #d798eb;
+        }
+
+        .example {
+            border-radius: 10px;
+            border: 5px dashed #db6c51;
+            margin: 20px;
+            float: left;
+        }
+
+        .dark-mode .example {
+            border: 5px dashed #8fc0e9;
+        }
+
+        label {
+            cursor: pointer;
+            width: 5px;
+            height: 5px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body onload=display_ct();>
+    <!-- navbar -->
+    <nav style="width: 100vw; font-family: Soap Regular; letter-spacing: 1px;" class="vhs-top vhs-duration-6">
+        <div class="flex justify-between rounded-full m-4 pl-8 night">
+            <div class="flex items-center justify-center text-white text-xl">
+                <a href="/logout" class="flex justify-center items-center px-4 py-5 rounded-0">
+                    <i class="ri-shut-down-line"></i>
+                    <p class="ml">logout</p>
+                </a>
+                <a href="/home" class="px-4 py-5" style="background-color: #ebc072;">home</a>
+                <a href="/calendar" class="px-4 py-5">it calendar</a>
+                <a href="/todolist" class="py-5 flex items-center px-4">
+                    task list
+                </a>
+                <a href="/diary" class="px-4 py-5">meeting</a>
+            </div>
+            <div class="flex mr-5 gap-x-4">
+                <a class="active flex items-center px-4 text-white text-xl " href="/profile">My Profile</a>
+                <label for="switch" class="flex justify-center h-full items-center">
+                    <i class="ri-moon-fill text-xl" id="icon"></i>
+                </label>
+                <input type="checkbox" class="invisible px-4" id="switch" />
+            </div>
+        </div>
+    </nav>
+    <!--pull user name-->
+    <p class="hello vhs-bottom mt-48">it19 {{username}}</p>
+    <div class="time vhs-fade vhs-duration-4">
+        <span id='ct5'></span>
+    </div>
+    <!-- js script -->
+    <script src="../static/js/script.js"></script>
+</body>
+
+</html>

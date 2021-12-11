@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Planner x it</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="http://d2v52k3cl9vedd.cloudfront.net/vhs/0.1.0/vhs.min.css">
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav style="width: 100vw; font-family: Soap Regular; letter-spacing: 1px;" class="vhs-top vhs-duration-6">
+        <div class="flex justify-between rounded-full m-4 pl-8 night">
+            <div class="flex items-center justify-center text-white text-xl">
+                <a href="/logout" class="flex justify-center items-center px-4 py-5 rounded-0">
+                    <i class="ri-shut-down-line"></i>
+                    <p class="ml">logout</p>
+                </a>
+                <a href="/home" class="px-4 py-5">home</a>
+                <a href="/calendar" class="px-4 py-5">it calendar</a>
+                <a href="/todolist" class="py-5 flex items-center px-4">
+                    task list
+                </a>
+                <a href="/diary" class="px-4 py-5">meeting</a>
+            </div>
+            <div class="flex mr-5 gap-x-4">
+                <a class="active flex items-center px-4 text-white text-xl " href="/profile"  style="background-color: #ebc072;">My Profile</a>
+                <label for="switch" class="flex justify-center h-full items-center">
+                    <i class="ri-moon-fill text-xl" id="icon"></i>
+                </label>
+                <input type="checkbox" class="invisible px-4" id="switch" />
+            </div>
+        </div>
+    </nav>
+    <!-- section -->
+    <div class="flex w-8/12 h-8/12 my-7 rounded-lg shadow-2xl p-16 section vhs-bottom vhs-duration-6">
+        <div class="w-1/2">
+            <img class="w-full h-full" src="/static/img/profile2.jpg">
+        </div>
+        <div class="flex flex-col w-1/2 justify-center ml-20">
+            <p class="label my-5 text-2xl text2" style="font-family: Arabica;">e-mail :</p>
+            <input class="text-2xl rounded-lg px-4 focus:outline-none py-3" style="font-family: Arabica;" readonly placeholder="{{ email }}">
+            <p class="label my-5 text-2xl text2" style="font-family: Arabica;">username :</p>
+            <input class="text-2xl rounded-lg px-4 focus:outline-none py-3" style="font-family: Arabica;" readonly placeholder="{{ username }}">
+            <script>
+                let change = () => {
+                    Swal.fire({
+                        title: 'change your username',
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        inputPlaceholder: "{{ username }}",
+                        confirmButtonColor: '#ec9360',
+                        cancelButtonColor: '#d33',
+                        showCancelButton: true,
+                        confirmButtonText: 'yes',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/profile_edit",
+                                data: { username: result.value },
+                                dataType: "json",
+                                success: function (response) {
+                                    console.log(response)
+                                }
+                            })
+                        }
+                        location.reload();
+                    })
+                }
+            </script>
+            <button onclick="change()"
+                class="rounded-full p-2 px-6 mt-20 text-white text-2xl btnpf" 
+                style="font-family: Arabica;">
+                Change Username
+            </button>
+        </div>
+    </div>
+    <script src="../static/js/script.js"></script>
+</body>
+
+</html>
